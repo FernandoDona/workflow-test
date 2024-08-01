@@ -25,4 +25,4 @@ jobs:
       run: echo ${{ steps.version.outputs.version-without-v }}
 
     - name: 'Dotnet Version'
-      run: echo ${{ env.DOTNET_VERSION }}
+      run: echo ${{ vars.DOTNET_VERSION }}
