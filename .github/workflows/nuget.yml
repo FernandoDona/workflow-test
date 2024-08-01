@@ -2,6 +2,10 @@ name: build and test
 
 on:
   push:
+    branches:
+      - main
+    tags:
+      - v*
 
 env:
   DOTNET_VERSION: '8.x' # The .NET SDK version to use
@@ -13,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        os: [ubuntu-latest]
 
     steps:
     - uses: actions/checkout@v3
@@ -30,3 +34,10 @@ jobs:
     
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+
+    - name: 'Get Version'
+      id: version
+      uses: battila7/get-version-action@v2
+
+    - name: 'Print Version'
+      run: echo ${{ steps.version.outputs.version-version-without-v }}
